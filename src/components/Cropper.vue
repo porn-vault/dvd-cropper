@@ -23,6 +23,22 @@
       />
       <button @click="extract">Update</button>
     </div>
+    <div style="margin-top: 25px">
+      <div><b>Pixel offsets</b></div>
+      <input
+        placeholder="Set offset left"
+        v-model.number="offsetLeft"
+        type="number"
+        style="margin-bottom: 25px; margin-right: 10px; width: 100px"
+      />
+      <input
+        v-if="hasSpine"
+        placeholder="Set offset right"
+        v-model.number="offsetRight"
+        type="number"
+        style="margin-bottom: 25px; width: 100px"
+      />
+    </div>
 
     <h3 style="margin-top: 25px; margin-bottom: 5px">Result</h3>
     <div style="margin-bottom: 25px; opacity: 0.75">
@@ -98,12 +114,13 @@ export default defineComponent({
     const hasSpine = computed(() => width.value > coverWidth.value * 2);
     const spineWidth = computed(() => width.value - coverWidth.value * 2);
 
+    const offsetLeft = ref(0);
+    const offsetRight = ref(0);
+
     const generatedBase64 = ref<string[]>([]);
 
     function extract() {
       if (base64.value) {
-        generatedBase64.value = [];
-
         const img = new Image();
 
         img.onload = () => {
@@ -115,11 +132,11 @@ export default defineComponent({
           const widths: number[] = [];
 
           // First cover
-          widths.push(coverWidth.value);
+          widths.push(coverWidth.value + offsetLeft.value);
 
           // Spine
           if (hasSpine.value) {
-            widths.push(spineWidth.value);
+            widths.push(spineWidth.value - offsetRight.value);
           }
 
           // Second cover
@@ -164,6 +181,9 @@ export default defineComponent({
       generatedBase64,
 
       extract,
+
+      offsetLeft,
+      offsetRight,
     };
   },
 });
