@@ -3,7 +3,7 @@
     <div style="text-align: center">
       <h3 style="margin-bottom: 5px">DVD Cropper</h3>
     </div>
-    <div style="text-align: center; margin-bottom: 20px; opacity: 0.8">
+    <div style="text-align: center; opacity: 0.8">
       <a target="blank" href="https://github.com/porn-vault/dvd-cropper">
         <svg
           style="width: 24px; height: 24px; margin-right: 20px"
@@ -29,6 +29,15 @@
           /></svg
       ></a>
     </div>
+    <hr
+      style="
+        margin-bottom: 20px;
+        margin-top: 20px;
+        width: 200px;
+        opacity: 0.25;
+        border-width: 1px;
+      "
+    />
     <div style="text-align: center">
       <cropper />
     </div>
